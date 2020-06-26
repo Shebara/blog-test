@@ -13,17 +13,21 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/post', function (req, res) {
-    axios.get(root).then(function (response) {
+app.get('/post', function(req, res){
+    axios.get(root).then(function(response){
         res.send(response.data);
+    }).catch(function(error) {
+        res.send(error);
     });
 });
 
-app.get('/comments/:id', function (req, res) {
+app.get('/comments/:id', function(req, res){
     const url = `${root}/${req.params.id}/comments`;
 
-    axios.get(url).then(function (response) {
+    axios.get(url).then(function(response){
         res.send(response.data);
+    }).catch(function(error) {
+        res.send(error);
     });
 });
 
