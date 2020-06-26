@@ -60,7 +60,7 @@ class ListPosts extends Component {
                                 <div className="box" title={item.title}>
                                     <h4>{item.title}</h4>
                                     <p>{item.description}</p>
-                                    <div class="created-at">{item.createdAt}</div>
+                                    <div className="created-at">{item.createdAt}</div>
                                 </div>
                             </Link>
                         </li>
