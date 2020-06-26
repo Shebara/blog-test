@@ -43,11 +43,11 @@ class ListPosts extends Component {
 
         if (! data || ! data.message) {
             this.props.setData({ data });
+            localStorage.setItem('data', JSON.stringify(data));
         }
     }
 
     renderItems() {
-
         const data = this.props.data;
 
         return (
