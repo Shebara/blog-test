@@ -55,11 +55,14 @@ body {
                     margin-bottom: 5px;
                 }
                 .created-at {
-                    color: $silent;
                     font-size: 10px;
                 }
             }
         }
+    }
+    .created-at {
+        color: $silent !important;
+        font-size: 13px;
     }
 }
   
