@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { setData } from '../store/actions';
+
+function mapDispatchToProps(dispatch) {
+    return {
+        setData: data => dispatch(setData(data))
+    };
+}
 
 class ListPosts extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            data: []
-        };
         this._isMounted = false;
         this.cancelToken = false;
     }
@@ -37,14 +42,13 @@ class ListPosts extends Component {
         const data = response.data;
 
         if (! data || ! data.message) {
-            this.setState({data: data});
-            localStorage.setItem('data', JSON.stringify(data));
+            this.props.setData({ data });
         }
     }
 
     renderItems() {
 
-        const data = this.state.data;
+        const data = this.props.data;
 
         return (
             <ul>
@@ -66,8 +70,9 @@ class ListPosts extends Component {
     }
 
     render() {
-
-        this.getResponse();
+        if (this.props.data.length === 0) {
+            this.getResponse();
+        }
 
         return (
             <div className="NewsList">
@@ -86,4 +91,4 @@ class ListPosts extends Component {
 }
 
 
-export default ListPosts;
+export default connect(null, mapDispatchToProps)(ListPosts);
