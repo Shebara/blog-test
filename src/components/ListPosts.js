@@ -30,7 +30,7 @@ class ListPosts extends Component {
             }
         });
 
-        if (! this._isMounted) {
+        if (! this._isMounted || ! response) {
             return;
         }
 
