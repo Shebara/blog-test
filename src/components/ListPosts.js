@@ -22,6 +22,24 @@ class ListPosts extends Component {
         this._isMounted = true;
     }
 
+    async appendCommentCount(data) {
+        const vm = this;
+        const url = 'http://localhost:5000/comments/' + data.id;
+        const response = await axios.get(url, {
+            cancelToken: new axios.CancelToken(function executor(cancel) {
+                vm.cancelToken = cancel;
+            })
+        }).catch(function (thrown) {
+            if (axios.isCancel(thrown)) {
+              console.log('Request `' + url + '` interrupted.');
+            }
+        });
+
+        data.commentCount = response.data && response.data.length > 0 ? response.data.length : 0;
+
+        return data;
+    }
+
     async getResponse() {
         const vm = this;
         const url = 'http://localhost:5000/post';
@@ -39,9 +57,11 @@ class ListPosts extends Component {
             return;
         }
 
-        const data = response.data;
+        let data = response.data;
 
-        if (! data || ! data.message) {
+        if (data && ! data.message) {
+            data = await Promise.all(data.map(item => this.appendCommentCount(item)))
+
             this.props.setData({ data });
             localStorage.setItem('data', JSON.stringify(data));
         }
@@ -61,6 +81,7 @@ class ListPosts extends Component {
                                     <h4>{item.title}</h4>
                                     <p>{item.description}</p>
                                     <div className="created-at">{item.createdAt}</div>
+                                    <div className="comments">{item.commentCount} comments</div>
                                 </div>
                             </Link>
                         </li>
@@ -73,6 +94,12 @@ class ListPosts extends Component {
     render() {
         if (this.props.data.length === 0) {
             this.getResponse();
+
+            return (
+                <div>
+                    <h3>Loading posts...</h3>
+                </div>
+            );
         }
 
         return (
