@@ -60,6 +60,7 @@ class ListPosts extends Component {
                                 <div className="box" title={item.title}>
                                     <h4>{item.title}</h4>
                                     <p>{item.description}</p>
+                                    <div class="created-at">{item.createdAt}</div>
                                 </div>
                             </Link>
                         </li>
@@ -75,7 +76,7 @@ class ListPosts extends Component {
         }
 
         return (
-            <div className="NewsList">
+            <div className="ListPosts">
                 {this.renderItems()}
             </div>
         );

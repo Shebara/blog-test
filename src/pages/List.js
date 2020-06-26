@@ -7,7 +7,7 @@ const List = () => {
 
   return (
     <div className="List">
-      <h1>POSTS</h1>
+      <h1>Posts:</h1>
       <ListPosts data={data} />
     </div>
   );

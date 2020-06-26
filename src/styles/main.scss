@@ -32,9 +32,34 @@ body {
             }
         }
     }
-}
-
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    a {
+        color: $link;
+        text-decoration: none;
+        &:hover {
+            color: $hover;
+        }
+    }
+    .ListPosts {
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        a {
+            .box {
+                h4 {
+                    margin-bottom: 5px;
+                }
+                p {
+                    color: $text;
+                    margin-top: 0;
+                    margin-bottom: 5px;
+                }
+                .created-at {
+                    color: $silent;
+                    font-size: 10px;
+                }
+            }
+        }
+    }
 }
   
