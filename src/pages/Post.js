@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Error from '../components/Error';
+import Comments from '../components/Comments';
 
 const Post = ({match}) => {
   let data = useSelector(state => state.data);
@@ -25,12 +26,12 @@ const Post = ({match}) => {
       data = JSON.parse(data);
   }
 
-  if (! data[id]) {
+  data = data.find(item => item.id === id);
+
+  if (! data) {
     return (
       <Error title="Error: nonexistent post" desc="The post with this ID does not exist!" />
     );
-  } else {
-    data = data[id];
   }
 
   return (
@@ -40,6 +41,7 @@ const Post = ({match}) => {
       <h3>{data.description}</h3>
       <p>{data.text}</p>
       <div className="created-at">{data.createdAt}</div>
+      <Comments id={id} />
     </div>
   );
 }
