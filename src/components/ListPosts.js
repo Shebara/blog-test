@@ -36,10 +36,7 @@ class ListPosts extends Component {
             }
         });
 
-        const myComments = this.props.comments.filter(item => item.postId === data.id);
-
-        data.commentCount = response && response.data && response.data.length > 0
-        ? response.data.length + myComments.length : 0 + myComments.length;
+        data.commentCount = response && response.data && response.data.length > 0 ? response.data.length : 0;
 
         return data;
     }
@@ -73,11 +70,15 @@ class ListPosts extends Component {
 
     renderItems() {
         const data = this.props.data;
+        const comments = this.props.comments;
 
         return (
             <ul>
                 {data.map((item) => {
                     const link = '/post/' + item.id;
+                    const myComments = comments.filter(comment => comment.postId === item.id);
+                    const count = item.commentCount + myComments.length;
+
                     return (
                         <li key={item.id}>
                             <Link to={link}>
@@ -85,7 +86,7 @@ class ListPosts extends Component {
                                     <h4>{item.title}</h4>
                                     <p>{item.description}</p>
                                     <div className="created-at">{item.createdAt}</div>
-                                    <div className="comments">{item.commentCount} comments</div>
+                                    <div className="comments">{count} comments</div>
                                 </div>
                             </Link>
                         </li>
