@@ -33,6 +33,7 @@ class PostComment extends Component {
         e.preventDefault();
 
         const comment = {
+            id: this.props.newId,
             postId: this.props.id,
             name: this.state.name,
             text: this.state.comment,
@@ -42,7 +43,9 @@ class PostComment extends Component {
         const url = 'http://localhost:5000/comment/new';
         const response = await axios.post(url, comment);
 
-        console.log(response.data);
+        if (response) {
+            console.log(response.data);
+        }
 
         this.props.postComment(comment);
         this.setState({

@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Error from '../components/Error';
 import Comments from '../components/Comments';
-import { loadData } from '../store/localStorage';
+import { loadData, saveData } from '../store/localStorage';
 
 const Post = ({match}) => {
   let data = useSelector(state => state.data);
+  let comments = useSelector(state => state.comments);
 
   if (! match || ! match.params || ! match.params.id) {
       return (
@@ -25,8 +26,20 @@ const Post = ({match}) => {
   if (data.length === 0) {
       data = loadData('data');
   }
+  if (comments.length === 0) {
+      comments = loadData('comments');
+  } else {
+      saveData('comments', comments);
+  }
+
+  if (data.length === 0) {
+    return (
+      <Redirect to='/' />
+    );
+  }
 
   data = data.find(item => item.id === id);
+  comments = comments.filter(item => item.postId === id);
 
   if (! data) {
     return (
@@ -41,7 +54,7 @@ const Post = ({match}) => {
       <h3>{data.description}</h3>
       <p>{data.text}</p>
       <div className="created-at">{data.createdAt}</div>
-      <Comments id={id} />
+      <Comments id={id} comments={comments} />
     </div>
   );
 }

@@ -48,9 +48,22 @@ class Comments extends Component {
 
     renderItems() {
         const data = this.state.comments;
+        const my = this.props.comments;
 
         return (
             <ul>
+                {my.map((item) => {
+                    const date = new Date(item.createdAt);
+                    return (
+                        <li key={item.id}>
+                            <div className="box" title={item.title}>
+                                <h5>{item.name} <span className="italic">&#40;You&#41;</span></h5>
+                                <p>{item.text}</p>
+                                <div className="created-at">{date.toUTCString()}</div>
+                            </div>
+                        </li>
+                    );
+                })}
                 {data.map((item) => {
                     const date = new Date(item.createdAt);
                     return (
@@ -63,7 +76,7 @@ class Comments extends Component {
                         </li>
                     );
                 })}
-                <PostComment id={this.props.id} />
+                <PostComment id={this.props.id} newId={my.length} />
             </ul>
         )
     }

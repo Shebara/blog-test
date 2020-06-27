@@ -12,7 +12,8 @@ export default function(state = initialState, action) {
             return state;
         }
         case 'POST_COMMENT': {            
-            state.comments.push(action.payload);
+            const newComments = [action.payload];
+            state.comments = state.comments.concat(newComments);
           
             return state;
         }
