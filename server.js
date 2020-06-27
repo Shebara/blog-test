@@ -31,4 +31,8 @@ app.get('/comments/:id', function(req, res){
     });
 });
 
+app.post('/comment/new', function(req, res){
+    res.send(req.body);
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

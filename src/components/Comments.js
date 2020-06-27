@@ -63,7 +63,7 @@ class Comments extends Component {
                         </li>
                     );
                 })}
-                <PostComment />
+                <PostComment id={this.props.id} />
             </ul>
         )
     }
