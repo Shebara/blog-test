@@ -20,7 +20,7 @@ class Comments extends Component {
 
     async getResponse() {
         const vm = this;
-        const url = 'http://localhost:5000/comments/' + this.props.id;
+        const url = 'http://localhost:5000/comments/' + this.props.id + '/?nocache=' + new Date().getTime();
         const response = await axios.get(url, {
             cancelToken: new axios.CancelToken(function executor(cancel) {
                 vm.cancelToken = cancel;

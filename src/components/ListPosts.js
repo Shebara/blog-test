@@ -24,7 +24,7 @@ class ListPosts extends Component {
 
     async appendCommentCount(data) {
         const vm = this;
-        const url = 'http://localhost:5000/comments/' + data.id;
+        const url = 'http://localhost:5000/comments/' + data.id + '/?nocache=' + new Date().getTime();
         const response = await axios.get(url, {
             cancelToken: new axios.CancelToken(function executor(cancel) {
                 vm.cancelToken = cancel;
@@ -35,14 +35,14 @@ class ListPosts extends Component {
             }
         });
 
-        data.commentCount = response.data && response.data.length > 0 ? response.data.length : 0;
+        data.commentCount = response && response.data && response.data.length > 0 ? response.data.length : 0;
 
         return data;
     }
 
     async getResponse() {
         const vm = this;
-        const url = 'http://localhost:5000/post';
+        const url = 'http://localhost:5000/post/?nocache=' + new Date().getTime();
         const response = await axios.get(url, {
             cancelToken: new axios.CancelToken(function executor(cancel) {
                 vm.cancelToken = cancel;
