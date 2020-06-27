@@ -1,14 +1,14 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { shallow } from 'enzyme';
-import ListPosts from '../components/ListPosts';
+import { mount } from 'enzyme';
+import Post from '../pages/Post';
 import store from '../store';
 
-describe('ListPosts', () => {
+describe('Post', () => {
     it('should render without errors', () => {
-        const component = shallow(
+        const component = mount(
             <Provider store={store}>
-                <ListPosts />
+                <Post />
             </Provider>
         );
 
