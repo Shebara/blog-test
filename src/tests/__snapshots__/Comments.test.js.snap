@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Comments should render without errors 1`] = `
+Array [
+  <div
+    className="Comments"
+  >
+    <h2>
+      Loading comments...
+    </h2>
+  </div>,
+]
+`;
