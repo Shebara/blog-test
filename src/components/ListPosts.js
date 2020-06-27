@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { setData } from '../store/actions';
+import { saveData } from '../store/localStorage';
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -63,7 +64,7 @@ class ListPosts extends Component {
             data = await Promise.all(data.map(item => this.appendCommentCount(item)))
 
             this.props.setData({ data });
-            localStorage.setItem('data', JSON.stringify(data));
+            saveData('data', data);
         }
     }
 

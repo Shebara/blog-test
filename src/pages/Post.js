@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Error from '../components/Error';
 import Comments from '../components/Comments';
+import { loadData } from '../store/localStorage';
 
 const Post = ({match}) => {
   let data = useSelector(state => state.data);
@@ -22,8 +23,7 @@ const Post = ({match}) => {
   }
 
   if (data.length === 0) {
-      data = localStorage.getItem('data');
-      data = JSON.parse(data);
+      data = loadData('data');
   }
 
   data = data.find(item => item.id === id);
